@@ -1,0 +1,71 @@
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./index.css">
+ 
+    
+ </head>
+ <body>
+        <div class="containr">
+            <div class="time_cintainer">
+                 <div class="box1"></div>   
+                 <div class="box2" id="box"></div> 
+            </div>  
+            <div class="timer_box">
+                    <h1 id="display_time">
+                        00:00
+                    </h1>
+            </div>
+        
+            <div class="control_container" >
+                <h1 id="head"> 
+                    Session 1
+                </h1>
+                <div class="controls">
+                    <div class="session_control_container">
+                            <h6> Session Time</h6>
+                            <h5  id="s_time">  20 min</h5>
+                            <div class="session_buttons">
+                                <button  onclick="addSesionTime()">
+                                    +
+                                </button>
+                                <button onclick="subSessionTime()">
+                                    -
+                                </button>
+                            </div>
+                    </div>  
+                    <div class="break_control_container">
+                        <h6> break Time</h6>
+                        <h5 id="b_time">  5 min</h5>
+                        <div class="session_buttons">
+                            <button onclick="addBreakTime()">
+                                +
+                            </button>
+                            <button onclick="subBreakTime()">
+                                -
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="start_reset_container">
+                    <button onclick="start()" id="start">
+                        Start
+                    </button>
+                    <button onclick="reset()">
+                        Reset
+                    </button>
+                </div>
+
+            </div>
+        
+    </div>
+ </body>
+ <script src="./index.js">
+ 
+ </script>
+ </html>

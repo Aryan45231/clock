@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+    margin: 0;
+    padding: 0;
+ overflow: hidden;
+    box-sizing: border-box;
+}
+body{
+    min-height: 100vh;
+    overflow: hidden;
+   background: linear-gradient(to right,#ffbe76,#eccc68);
+     overflow: hidden;
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+    
+}
+.containr{
+     position: absolute;
+    
+    height: 480px;
+    width: 220px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+  border-radius: 10px;
+    background-color: rgba( 70, 31, 0,0.7);
+    box-shadow: -5px 10px 30px rgba(0, 0, 0, .8);
+
+}
+
+.time_cintainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 230px;
+}
+.box1{
+    width: 100px; 
+    height: 200px;
+    background-color: gray;
+}
+.box2{
+    
+    width: 100px;
+  
+    height: 200px;
+    background-color: skyblue;
+}
+.timer_box{
+    position: relative;
+    left: 20px;
+    top: -205px;
+    background-color: white;
+    color:    #6E470B;
+    font-size: 22px;
+    height: 180px;
+    width: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.control_container{
+ 
+  width: 220px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+color: white;
+  align-items: center;
+  top: 230px;
+  left: -220px;
+}
+.controls{
+   padding: 20px 0;
+    border-top:  2px solid grey;
+    border-bottom: 2px solid gray;
+    margin-top: 20px;
+    width: 100%;;
+    font-size: 20px;
+    display: flex;
+    text-align: center;
+    justify-content: space-around;
+}
+button{
+    background-color: black;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    margin-top:  10px;  ;
+    font-size: 20px;
+    color: white;
+    padding: 0px 15px;
+}
+.controls h5{
+    
+    font-size: 25px;
+}
+.start_reset_container{
+    margin-top: 10px;
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+.start_reset_container button{
+    padding:  5px 20px;
+}
+
+    </style>
+</head>
+<body>
+    <div class="containr">
+        <div class="time_cintainer">
+             <div class="box1"></div>   
+             <div class="box2" id="box"></div> 
+        </div>  
+        <div class="timer_box">
+                <h1 id="display_time">
+                    00:00
+                </h1>
+        </div>
+    
+        <div class="control_container" >
+            <h1 id="head"> 
+                Session 1
+            </h1>
+            <div class="controls">
+                <div class="session_control_container">
+                        <h6> Session Time</h6>
+                        <h5  id="s_time">  20 min</h5>
+                        <div class="session_buttons">
+                            <button  onclick="addSesionTime()">
+                                +
+                            </button>
+                            <button onclick="subSessionTime()">
+                                -
+                            </button>
+                        </div>
+                </div>  
+                <div class="break_control_container">
+                    <h6> break Time</h6>
+                    <h5 id="b_time">  5 min</h5>
+                    <div class="session_buttons">
+                        <button onclick="addBreakTime()">
+                            +
+                        </button>
+                        <button onclick="subBreakTime()">
+                            -
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+            <div class="start_reset_container">
+                <button onclick="start()" id="start">
+                    Start
+                </button>
+                <button onclick="reset()">
+                    Reset
+                </button>
+            </div>
+
+        </div>
+    
+</div>
+</body>
+<script>
+    let min = 0;
+let sec = 0;
+let s_min = 15;
+let b_min = 5
+let sesion_count = 1;
+let break_count = 1;
+let temp=s_min;
+let flag = true;
+let flag2 = true;
+let i = 0
+const st = document.getElementById("start")
+const time = document.getElementById("display_time");
+const s_time = document.getElementById("s_time")
+const b_time = document.getElementById("b_time")
+s_time.innerHTML = `${s_min} min`
+b_time.innerHTML = `${b_min} min`
+time.innerHTML = `0${min}:0${sec}`
+const addSesionTime = () => {
+    s_min++
+    temp=s_min
+    s_time.innerHTML = `${s_min} min`
+}
+const subSessionTime = () => {
+    if (s_min > 1) {
+        s_min--;
+        temp=s_min;
+        s_time.innerHTML = `${s_min} min`
+    }
+}
+
+const addBreakTime = () => {
+    b_min++;
+    b_time.innerHTML = `${b_min} min`
+}
+const subBreakTime = () => {
+    if (b_min > 0) {
+        b_min--;
+        b_time.innerHTML = `${b_min} min`
+    }
+
+}
+const controls_fun = ["addSesionTime()", "subSessionTime()", "addBreakTime()", "subBreakTime()"]
+const activeButtons = () => {
+    const btn = document.getElementsByTagName("button")
+    for (let i = 0; i < 4; i++)
+        btn[i].setAttribute("onclick", controls_fun[i])
+}
+
+const disableButttons = () => {
+    const btn = document.getElementsByTagName("button")
+    for (let i = 0; i < 4; i++)
+        btn[i].setAttribute("onclick", "")
+}
+const start = () => {
+    if (flag2) {
+        min = temp;
+        sec = 59;
+        if (min >= 10) {
+            time.innerHTML = `${min}:00`;
+        } else {
+            time.innerHTML = `0${min}:00`;
+        }
+        min--;
+    }
+    flag2 = true;
+    disableButttons()
+    st.innerHTML = "Pause"
+    st.setAttribute("onclick", "pause()")
+
+    i = setInterval(() => {
+        if (min != 0 || sec != 0) {
+            if (min < 10 && sec < 10) {
+                time.innerHTML = `0${min}:0${sec}`
+            }
+            else if (min >= 10 && sec < 10)
+                time.innerHTML = `${min}:0${sec}`
+            else if (min < 10 && sec >= 10) {
+                time.innerHTML = `0${min}:${sec}`
+            }
+            else {
+                time.innerHTML = `${min}:${sec}`
+            }
+            if (sec <= 0) {
+                sec = 59;
+                min--
+            }
+            sec--
+
+        } else {
+            
+            if (flag && b_min != 0) {
+                clearInterval(i)
+           temp=b_min
+                console.log("for break")
+                document.getElementById("box").style.backgroundColor = "red"
+                document.getElementById("head").innerHTML = `Break ${break_count++}`
+                flag = false
+                start()
+            } else {
+                clearInterval(i)
+              temp=s_min
+                console.log("for session")
+                document.getElementById("box").style.backgroundColor = "skyblue"
+                document.getElementById("head").innerHTML = `Session  ${++sesion_count}`
+                flag = true
+                start()
+            }
+
+        }
+    }, 1000);
+}
+
+const pause = () => {
+    clearInterval(i)
+    st.innerHTML = "Start"
+    st.setAttribute("onclick", "start()")
+    activeButtons()
+    flag2 = false
+}
+
+
+const reset = () => {
+    clearInterval(i)
+    min = 0
+    sec = 0
+    s_min=15;
+    b_min=5;
+    s_time.innerHTML=`${s_min} min`
+    b_time.innerHTML=`${b_min} min`
+    st.innerHTML = "Start"
+    st.setAttribute("onclick", "start()")
+    activeButtons()
+    flag2 = true
+    time.innerHTML = `0${min}:0${sec}`
+}
+
+
+</script>
+</html>
